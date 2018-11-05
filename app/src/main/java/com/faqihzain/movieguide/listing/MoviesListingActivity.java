@@ -14,6 +14,7 @@ import android.view.MenuItem;
 
 import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.R;
+import com.faqihzain.movieguide.util.RxUtils;
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
 
 import java.util.concurrent.TimeUnit;
@@ -56,6 +57,37 @@ public class MoviesListingActivity extends AppCompatActivity implements MoviesLi
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        final MenuItem searchItem = menu.findItem(R.id.action_search);
+        final SearchView searchView = (SearchView) searchItem.getActionView();
+        final MoviesListingFragment mlFragment = (MoviesListingFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_listing);
+        searchItem.setOnActionExpandListener(new MenuItem.OnActionExpandListener() {
+            @Override
+            public boolean onMenuItemActionExpand(MenuItem item) {
+                return true;
+            }
+
+            @Override
+            public boolean onMenuItemActionCollapse(MenuItem item) {
+                MoviesListingFragment mlFragment = (MoviesListingFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_listing);
+                mlFragment.searchViewBackButtonClicked();
+                return true;
+            }
+        });
+
+        searchViewTextSubscription = RxSearchView.queryTextChanges(searchView)
+                .debounce(500, TimeUnit.MILLISECONDS)
+                .subscribe(charSequence -> {
+                    if (charSequence.length() > 0) {
+                        mlFragment.searchViewClicked(charSequence.toString());
+                    }
+                });
+
+        return true;
+    }
+
+    @Override
     public void onMoviesLoaded(Movie movie) {
 
     }
@@ -63,5 +95,11 @@ public class MoviesListingActivity extends AppCompatActivity implements MoviesLi
     @Override
     public void onMovieClicked(Movie movie) {
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        RxUtils.unsubscribe(searchViewTextSubscription);
+        super.onDestroy();
     }
 }
