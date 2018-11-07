@@ -50,8 +50,7 @@ class MoviesListingInteractorImpl implements MoviesListingInteractor {
             String maxReleaseDate = dateFormat.format(cal.getTime());
             return tmdbWebService.newestMovies(maxReleaseDate, NEWEST_MIN_VOTE_COUNT).map(MoviesWraper::getMovieList);
         } else {
-//            return Observable.just(favoritesInteractor.getFavorites());
-            return tmdbWebService.popularMovies(page).map(MoviesWraper::getMovieList);
+            return Observable.just(favoritesInteractor.getFavorites());
         }
     }
 
