@@ -3,6 +3,8 @@ package com.faqihzain.movieguide;
 import android.app.Application;
 import android.os.StrictMode;
 
+import com.faqihzain.movieguide.details.DetailsComponent;
+import com.faqihzain.movieguide.details.DetailsModule;
 import com.faqihzain.movieguide.listing.ListingComponent;
 import com.faqihzain.movieguide.listing.ListingModule;
 import com.faqihzain.movieguide.network.NetworkModule;
@@ -13,6 +15,7 @@ public class BaseApplication extends Application {
 
     private AppComponent appComponent;
     private ListingComponent listingComponent;
+    private DetailsComponent detailsComponent;
 
     @Override
     public void onCreate()
@@ -33,6 +36,17 @@ public class BaseApplication extends Application {
 
     private void initRealm(){
         Realm.init(this);
+    }
+
+    public DetailsComponent createDetailsComponent()
+    {
+        detailsComponent = appComponent.plus(new DetailsModule());
+        return detailsComponent;
+    }
+
+    public void releaseDetailsComponent()
+    {
+        detailsComponent = null;
     }
 
     public ListingComponent createListingComponent()

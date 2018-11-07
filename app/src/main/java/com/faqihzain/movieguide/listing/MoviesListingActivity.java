@@ -12,8 +12,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import com.faqihzain.movieguide.Constants;
 import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.R;
+import com.faqihzain.movieguide.details.MovieDetailsActivity;
+import com.faqihzain.movieguide.details.MovieDetailsFragment;
 import com.faqihzain.movieguide.util.RxUtils;
 import com.jakewharton.rxbinding2.support.v7.widget.RxSearchView;
 
@@ -36,11 +39,11 @@ public class MoviesListingActivity extends AppCompatActivity implements MoviesLi
         if (findViewById(R.id.movie_details_container) != null) {
             twoPaneMode = true;
 
-//            if (savedInstanceState == null) {
-//                getSupportFragmentManager().beginTransaction()
-//                        .replace(R.id.movie_details_container, new MovieDetailsFragment())
-//                        .commit();
-//            }
+            if (savedInstanceState == null) {
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.movie_details_container, new MovieDetailsFragment())
+                        .commit();
+            }
         } else {
             twoPaneMode = false;
         }
@@ -89,12 +92,35 @@ public class MoviesListingActivity extends AppCompatActivity implements MoviesLi
 
     @Override
     public void onMoviesLoaded(Movie movie) {
-
+        if (twoPaneMode) {
+            loadMovieFragment(movie);
+        } else {
+            // Do not load in single pane view
+        }
     }
 
     @Override
     public void onMovieClicked(Movie movie) {
+        if (twoPaneMode) {
+            loadMovieFragment(movie);
+        } else {
+            startMovieActivity(movie);
+        }
+    }
 
+    private void startMovieActivity(Movie movie) {
+        Intent intent = new Intent(this, MovieDetailsActivity.class);
+        Bundle extras = new Bundle();
+        extras.putParcelable(Constants.MOVIE, movie);
+        intent.putExtras(extras);
+        startActivity(intent);
+    }
+
+    private void loadMovieFragment(Movie movie) {
+        MovieDetailsFragment movieDetailsFragment = MovieDetailsFragment.getInstance(movie);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.movie_details_container, movieDetailsFragment, DETAILS_FRAGMENT)
+                .commit();
     }
 
     @Override
