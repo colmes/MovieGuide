@@ -3,7 +3,7 @@ package com.faqihzain.movieguide.details;
 import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.Review;
 import com.faqihzain.movieguide.Video;
-//import com.faqihzain.movieguide.favorites.FavoritesInteractor;
+import com.faqihzain.movieguide.favorites.FavoritesInteractor;
 import com.faqihzain.movieguide.util.RxUtils;
 
 import java.util.List;
@@ -15,14 +15,13 @@ import io.reactivex.schedulers.Schedulers;
 class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
     private MovieDetailsView view;
     private MovieDetailsInteractor movieDetailsInteractor;
-//    private FavoritesInteractor favoritesInteractor;
+    private FavoritesInteractor favoritesInteractor;
     private Disposable trailersSubscription;
     private Disposable reviewSubscription;
 
-    MovieDetailsPresenterImpl(MovieDetailsInteractor movieDetailsInteractor//, FavoritesInteractor favoritesInteractor
-    ) {
+    MovieDetailsPresenterImpl(MovieDetailsInteractor movieDetailsInteractor, FavoritesInteractor favoritesInteractor) {
         this.movieDetailsInteractor = movieDetailsInteractor;
-//        this.favoritesInteractor = favoritesInteractor;
+        this.favoritesInteractor = favoritesInteractor;
     }
 
     @Override
@@ -84,27 +83,27 @@ class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
 
     @Override
     public void showFavoriteButton(Movie movie) {
-//        boolean isFavorite = favoritesInteractor.isFavorite(movie.getId());
-//        if (isViewAttached()) {
-//            if (isFavorite) {
-//                view.showFavorited();
-//            } else {
-//                view.showUnFavorited();
-//            }
-//        }
+        boolean isFavorite = favoritesInteractor.isFavorite(movie.getId());
+        if (isViewAttached()) {
+            if (isFavorite) {
+                view.showFavorited();
+            } else {
+                view.showUnFavorited();
+            }
+        }
     }
 
     @Override
     public void onFavoriteClick(Movie movie) {
-//        if (isViewAttached()) {
-//            boolean isFavorite = favoritesInteractor.isFavorite(movie.getId());
-//            if (isFavorite) {
-//                favoritesInteractor.unFavorite(movie.getId());
-//                view.showUnFavorited();
-//            } else {
-//                favoritesInteractor.setFavorite(movie);
-//                view.showFavorited();
-//            }
-//        }
+        if (isViewAttached()) {
+            boolean isFavorite = favoritesInteractor.isFavorite(movie.getId());
+            if (isFavorite) {
+                favoritesInteractor.unFavorite(movie.getId());
+                view.showUnFavorited();
+            } else {
+                favoritesInteractor.setFavorite(movie);
+                view.showFavorited();
+            }
+        }
     }
 }

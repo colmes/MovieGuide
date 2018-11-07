@@ -1,5 +1,6 @@
 package com.faqihzain.movieguide.listing;
 
+import com.faqihzain.movieguide.favorites.FavoritesInteractor;
 import com.faqihzain.movieguide.listing.sorting.SortingOptionStore;
 import com.faqihzain.movieguide.network.TmdbWebService;
 
@@ -10,14 +11,10 @@ import dagger.Provides;
 public class ListingModule {
 
     @Provides
-    MoviesListingInteractor provideMovieListingInteractor(//FavoritesInteractor favoritesInteractor,
-                                                          TmdbWebService tmdbWebService
-                                                          ,SortingOptionStore sortingOptionStore
-                                                          ) {
-        return new MoviesListingInteractorImpl(//favoritesInteractor,
-                 tmdbWebService
-                , sortingOptionStore
-                );
+    MoviesListingInteractor provideMovieListingInteractor(FavoritesInteractor favoritesInteractor,
+                                                          TmdbWebService tmdbWebService,
+                                                          SortingOptionStore sortingOptionStore) {
+        return new MoviesListingInteractorImpl(favoritesInteractor, tmdbWebService, sortingOptionStore);
     }
 
     @Provides

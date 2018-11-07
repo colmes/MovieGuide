@@ -5,6 +5,7 @@ import android.os.StrictMode;
 
 import com.faqihzain.movieguide.details.DetailsComponent;
 import com.faqihzain.movieguide.details.DetailsModule;
+import com.faqihzain.movieguide.favorites.FavoritesModule;
 import com.faqihzain.movieguide.listing.ListingComponent;
 import com.faqihzain.movieguide.listing.ListingModule;
 import com.faqihzain.movieguide.network.NetworkModule;
@@ -31,6 +32,7 @@ public class BaseApplication extends Application {
         return DaggerAppComponent.builder()
                 .appModule(new AppModule(this))
                 .networkModule(new NetworkModule())
+                .favoritesModule(new FavoritesModule())
                 .build();
     }
 

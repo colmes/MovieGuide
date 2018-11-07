@@ -1,6 +1,6 @@
 package com.faqihzain.movieguide.details;
 
-//import com.faqihzain.movieguide.favorites.FavoritesInteractor;
+import com.faqihzain.movieguide.favorites.FavoritesInteractor;
 import com.faqihzain.movieguide.network.TmdbWebService;
 
 import dagger.Module;
@@ -16,10 +16,9 @@ public class DetailsModule {
 
     @Provides
     @DetailsScope
-    MovieDetailsPresenter providePresenter(MovieDetailsInteractor detailsInteractor
-//            ,FavoritesInteractor favoritesInteractor
-    ) {
-        return new MovieDetailsPresenterImpl(detailsInteractor//, favoritesInteractor
+    MovieDetailsPresenter providePresenter(MovieDetailsInteractor detailsInteractor,
+                                           FavoritesInteractor favoritesInteractor) {
+        return new MovieDetailsPresenterImpl(detailsInteractor, favoritesInteractor
         );
     }
 }

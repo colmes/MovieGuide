@@ -4,7 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.MoviesWraper;
-//import com.faqihzain.movieguide.favorites.FavoritesInteractor;
+import com.faqihzain.movieguide.favorites.FavoritesInteractor;
 import com.faqihzain.movieguide.listing.sorting.SortType;
 import com.faqihzain.movieguide.listing.sorting.SortingOptionStore;
 import com.faqihzain.movieguide.network.TmdbWebService;
@@ -17,16 +17,16 @@ import java.util.List;
 import io.reactivex.Observable;
 
 class MoviesListingInteractorImpl implements MoviesListingInteractor {
-//    private FavoritesInteractor favoritesInteractor;
+    private FavoritesInteractor favoritesInteractor;
     private TmdbWebService tmdbWebService;
     private SortingOptionStore sortingOptionStore;
     private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     private static final int NEWEST_MIN_VOTE_COUNT = 50;
 
-    MoviesListingInteractorImpl(//FavoritesInteractor favoritesInteractor,
-                                TmdbWebService tmdbWebService, SortingOptionStore store
-                                 ) {
-//        this.favoritesInteractor = favoritesInteractor;
+    MoviesListingInteractorImpl(FavoritesInteractor favoritesInteractor,
+                                TmdbWebService tmdbWebService,
+                                SortingOptionStore store) {
+        this.favoritesInteractor = favoritesInteractor;
         this.tmdbWebService = tmdbWebService;
         sortingOptionStore = store;
     }
