@@ -19,6 +19,8 @@ import com.faqihzain.movieguide.BaseApplication;
 import com.faqihzain.movieguide.Constants;
 import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.R;
+import com.faqihzain.movieguide.listing.sorting.SortingDialogFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -103,8 +105,8 @@ public class MoviesListingFragment extends Fragment implements MoviesListingView
     }
 
     private void displaySortingOptions() {
-//        DialogFragment sortingDialogFragment = SortingDialogFragment.newInstance(moviesPresenter);
-//        sortingDialogFragment.show(getFragmentManager(), "Select Quantity");
+        DialogFragment sortingDialogFragment = SortingDialogFragment.newInstance(moviesPresenter);
+        sortingDialogFragment.show(getFragmentManager(), "Select Quantity");
     }
 
     private void initLayoutReferences() {
