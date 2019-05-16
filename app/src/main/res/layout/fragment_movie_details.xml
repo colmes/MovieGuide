@@ -102,6 +102,16 @@
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@android:color/white"/>
 
+            <Button
+                android:id="@+id/similar_movies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="16dp"
+                android:padding="10dp"
+                android:textColor="#ffffff"
+                android:background="@drawable/round_button"
+                android:text="@string/similar_movies" />
+
             <include
                 layout="@layout/trailers_and_reviews"
                 android:layout_width="match_parent"

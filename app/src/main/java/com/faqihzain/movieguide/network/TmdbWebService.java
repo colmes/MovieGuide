@@ -29,4 +29,6 @@ public interface TmdbWebService {
     @GET("3/search/movie?language=en-US&page=1")
     Observable<MoviesWraper> searchMovies(@Query("query") String searchQuery);
 
+    @GET("3/movie/{id}/similar?language=en-US&page=1")
+    Observable<MoviesWraper> similarMovies(@Path("id") String id);
 }

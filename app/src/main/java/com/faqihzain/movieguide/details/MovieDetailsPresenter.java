@@ -1,5 +1,7 @@
 package com.faqihzain.movieguide.details;
 
+import android.content.Context;
+
 import com.faqihzain.movieguide.Movie;
 
 public interface MovieDetailsPresenter
@@ -17,4 +19,6 @@ public interface MovieDetailsPresenter
     void setView(MovieDetailsView view);
 
     void destroy();
+
+    void onSimilarMoviesClick(Context context, String id);
 }

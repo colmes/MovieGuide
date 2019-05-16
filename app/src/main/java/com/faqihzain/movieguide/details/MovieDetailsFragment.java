@@ -1,6 +1,7 @@
 package com.faqihzain.movieguide.details;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -30,6 +32,7 @@ import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.R;
 import com.faqihzain.movieguide.Review;
 import com.faqihzain.movieguide.Video;
+import com.faqihzain.movieguide.similar.MoviesSimilarActivity;
 
 import java.util.List;
 
@@ -69,6 +72,8 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
     LinearLayout reviewsContainer;
     @BindView(R.id.favorite)
     FloatingActionButton favorite;
+    @BindView(R.id.similar_movies)
+    Button similarMovies;
     @BindView(R.id.toolbar)
     @Nullable
     Toolbar toolbar;
@@ -158,6 +163,7 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
         overview.setText(movie.getOverview());
         movieDetailsPresenter.showTrailers(movie);
         movieDetailsPresenter.showReviews(movie);
+        similarMovies.setOnClickListener(this);
     }
 
     @Override
@@ -237,6 +243,13 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
         favorite.setImageDrawable(ContextCompat.getDrawable(getContext(), R.drawable.ic_favorite_border_white_24dp));
     }
 
+    @Override
+    public void toSimilarActivity(Context context, String id) {
+        Intent intent = new Intent(context, MoviesSimilarActivity.class);
+        intent.putExtra("id", id);
+        startActivity(intent);
+    }
+
     @OnClick(R.id.favorite)
     public void onClick(View view)
     {
@@ -254,9 +267,17 @@ public class MovieDetailsFragment extends Fragment implements MovieDetailsView, 
                 onFavoriteClick();
                 break;
 
+            case R.id.similar_movies:
+                onSimilarMoviesClick(getContext(), movie.getId());
+                break;
+
             default:
                 break;
         }
+    }
+
+    private void onSimilarMoviesClick(Context context, String id) {
+        movieDetailsPresenter.onSimilarMoviesClick(context, id);
     }
 
     private void onReviewClick(TextView view)

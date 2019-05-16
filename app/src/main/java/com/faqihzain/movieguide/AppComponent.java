@@ -6,6 +6,8 @@ import com.faqihzain.movieguide.favorites.FavoritesModule;
 import com.faqihzain.movieguide.listing.ListingComponent;
 import com.faqihzain.movieguide.listing.ListingModule;
 import com.faqihzain.movieguide.network.NetworkModule;
+import com.faqihzain.movieguide.similar.SimilarComponent;
+import com.faqihzain.movieguide.similar.SimilarModule;
 
 import javax.inject.Singleton;
 
@@ -22,4 +24,6 @@ public interface AppComponent {
     ListingComponent plus(ListingModule listingModule);
 
     DetailsComponent plus(DetailsModule detailsModule);
+
+    SimilarComponent plus(SimilarModule similarModule);
 }

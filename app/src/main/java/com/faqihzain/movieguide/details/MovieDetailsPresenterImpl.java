@@ -1,5 +1,9 @@
 package com.faqihzain.movieguide.details;
 
+import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
+
 import com.faqihzain.movieguide.Movie;
 import com.faqihzain.movieguide.Review;
 import com.faqihzain.movieguide.Video;
@@ -33,6 +37,11 @@ class MovieDetailsPresenterImpl implements MovieDetailsPresenter {
     public void destroy() {
         view = null;
         RxUtils.unsubscribe(trailersSubscription, reviewSubscription);
+    }
+
+    @Override
+    public void onSimilarMoviesClick(Context context, String id) {
+        view.toSimilarActivity(context, id);
     }
 
     @Override
