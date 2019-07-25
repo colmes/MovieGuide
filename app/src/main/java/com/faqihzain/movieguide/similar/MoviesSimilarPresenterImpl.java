@@ -12,8 +12,7 @@ import io.reactivex.schedulers.Schedulers;
 public class MoviesSimilarPresenterImpl implements MoviesSimilarPresenter {
     private MoviesSimilarView view;
     private MoviesSimilarInteractor moviesSimilarInteractor;
-    private Disposable fetchSubscription;
-    private Disposable movieSearchSubscription;
+    private Disposable movieSimilarSubscription;
     private int currentPage = 1;
     private List<Movie> loadedSimilarMovies = new ArrayList<>();
 
@@ -29,7 +28,7 @@ public class MoviesSimilarPresenterImpl implements MoviesSimilarPresenter {
     @Override
     public void showSimilarMovies(String id) {
         showLoading();
-        movieSearchSubscription = moviesSimilarInteractor.similarMovies(id)
+        movieSimilarSubscription = moviesSimilarInteractor.similarMovies(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::onSuccess, this::onFailed);
